@@ -1,11 +1,41 @@
+// these usernames are taken
+var taken_username = [];
+var stored_passwords = [];
+var logged_in = false;
+function createAccount() {
+  if (document.getElementById('formElement1').style.display == 'block') {
+    
+    document.getElementById('formElement1').style.display = 'none';
+    document.getElementById('formElement2').style.display = 'block';
+  }
+   
+  
+}
+function logIn() {
+  if (document.getElementById('formElement2').style.display =="block"validate()) {
+    storePassword(document.getElementById('rpwd').value, document.getElementById('username').value);
+    logged_in = true;
+    window.location = "index.html";
+    
+    
+  }
+  if (document.getElementById('formElement1').style.display =="block" && checkIfExists()) {
+     
+    logged_in = true;
+    window.location = "index.html";
+  } 
+  
+}
+
 //This function compares the initial password with the re-entered password.
 function validate(){
-  // these usernames are taken
-  const taken_username = ["Harry", "Elizabeth","Shana"];
+  
   // assigns x to the value in 're-password' lable.
-  var x = document.getElementById('re-password').value;
+  var x = document.getElementById('rpwd').value;
+  console.log(String(x) + "x")
   // assigns y to the value in 'password' lable.
-  var y = document.getElementById('password').value;
+  var y = document.getElementById('passwd').value;
+  console.log(String(y) + "y")
   // assigns username to the value given in 'username' lable.
   var username = document.getElementById('username').value;
   //These are flags used for checking if the username and password is valid. These will become true if they are.
@@ -27,23 +57,21 @@ function validate(){
   }
   else{
     alert("Your re-entered password does not match.")
-    return false
+    return false;
   }
   //If both the password and the username are valid then return true and submit the form.
   if(isValadPassword && isValadUsername){
-    //trying to set the cells to whatever was submitted
-    document.getElementById("cell1").innerHTML =  document.getElementById('FirstName').value
-    document.getElementById("cell2").innerHTML = document.getElementById('LastName').value
-    document.getElementById("cell3").innerHTML = document.getElementById('year').value
-    document.getElementById("cell4").innerHTML = document.getElementById('phone').value
-    document.getElementById("cell5").innerHTML = document.getElementById('e-mail').value
-    document.getElementById("cell6").innerHTML = document.getElementById('username').value
-    document.getElementById("cell7").innerHTML = document.getElementById('password').value
-    document.getElementById("cell8").innerHTML = document.getElementById('re-password').value
     return true;
   }
   else{
     return false;
   }
+}
     
+function storePassword(password, username){
+    console.log(password, username)
+    stored_passwords.push([password, username]);
+}
+function checkIfExists() {
+  stored_passwords.includes([document.getElementById('password'),document.getElementById('user')]);
 }
